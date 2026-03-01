@@ -1,8 +1,11 @@
 name: Daily Auto Commit
 
+permissions:
+  contents: write
+
 on:
   schedule:
-    - cron: '30 3 * * *'   # Runs daily at 03:30 UTC (specific hour + minute)
+    - cron: '30 3 * * *'
   workflow_dispatch:
 
 jobs:
@@ -26,4 +29,4 @@ jobs:
         run: |
           git add daily_log.txt
           git commit -m "Daily automated commit on $(date)" || echo "No changes to commit"
-          git push
+          git push origin HEAD:${{ github.ref_name }}
